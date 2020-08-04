@@ -33,35 +33,6 @@ router.post('/thread/:id/replies', async function(req, res, next) {
 });
 
 
-// router.get('/', async function(req, res, next) {
-//   if (req.query.firstName && req.query.lastName) {
-//     let user = await Users.findAll({where: {
-//       firstName: req.query.firstName,
-//       lastName: req.query.lastName
-//     }})
-//     res.json(user);
-//   }
-//   else {
-//     res.send('respond with a resource');
-//   }
-  
-// });
 
-// router.get('/:id', async function(req, res, next) {
-//   let user = await Users.findAll({where:{id:req.params.id}})
-//   res.json(user);
-// });
-
-// router.post('/', async function(req, res, next) {
-//   const user = await Users.create(req.body);
-// });
-
-// router.put('/:id', async function(req, res, next) {
-//   const user = await Users.update(req.body, {
-//     where:{ 
-//       id: req.params.id
-//     }
-//     });
-// });
 
 module.exports = router;
