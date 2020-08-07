@@ -3,14 +3,6 @@ var router = express.Router();
 let { Op } = require("sequelize");
 let { User, Category, Thread, Reply } = require('../models');
 
-router.post('/registration', async function(req, res, next) {
-    if (req.body.userName && req.body.email && req.body.password) {
-        const user = await User.create(req.body);
-        res.json(user);
-    } 
-});
-
-
 
 router.get('/category/:id/threads', async function(req, res, next) {
     let threads = await Thread.findAll({where: {CategoryId:req.params.id}})
