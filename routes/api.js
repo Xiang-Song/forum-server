@@ -24,6 +24,14 @@ router.post('/thread/:id/replies', async function(req, res, next) {
     res.json(reply);
 });
 
+router.get('/test', async function(req, res, next){
+    if (req.isAuthenticated){
+        res.status(200).send('here is the data');
+    } else {
+        res.status(401).send('you are not login user')
+    }
+})
+
 
 
 
