@@ -72,10 +72,11 @@ router.post('/login', (req, res, next) => {
           const token = jwt.sign({ id: user.id }, process.env.SECRET, {
             expiresIn: 60 * 60,
           });
+         
           res.status(200).send({
             auth: true,
             token,
-            message: 'user found & logged in',
+            message: 'user found & logged in'
           });
         });
       });
@@ -84,7 +85,7 @@ router.post('/login', (req, res, next) => {
 })
 
 
-router.get('./finduser', (req, res, next) => {
+router.get('/finduser', (req, res, next) => {
   passport.authenticate('jwt', { session: false }, (err, user, info) => {
     if (err) {
       console.log(err);
@@ -121,5 +122,26 @@ router.get('./finduser', (req, res, next) => {
   })(req, res, next);
 })
 
+router.post('/profile', (req, res, next) => {
+  passport.authenticate('jwt', { session: false }, (err, user, info)=> {
+    if (err) {
+      console.log(err);
+    }
+    if (info !== undefined) {
+      console.log(info.message);
+      res.status(401).send(info.message)
+    } else {
+      res.status(200).send({
+        auth: true,
+        firstname: user.firstName,
+        lastname: user.lastName,
+        username: user.userName,
+        userId: user.id,
+        email: user.email,
+        password: user.password
+      });
+    }
+  })(req, res, next);
+})
 
 module.exports = router;

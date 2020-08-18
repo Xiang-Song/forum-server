@@ -3,9 +3,28 @@ var router = express.Router();
 let { Op } = require("sequelize");
 let { User, Category, Thread, Reply } = require('../models');
 
+router.post('/category', async function(req, res, next) {
+    let category= await Category.create(req.body);
+    res.json(category);
+})
+
+router.get('/category', async function(req, res, next) {
+    let categories= await Category.findAll();
+    res.json(categories);
+})
+
+router.get('/thread', async function(req, res, next) {
+    let threads = await Thread.findAll({include: [User]});
+    res.json(threads);
+})
+
+router.get('/thread/:id', async function(req, res, next) {
+    let thread = await Thread.findAll({where:{id:req.params.id}, include: [User]});
+    res.json(thread);
+})
 
 router.get('/category/:id/threads', async function(req, res, next) {
-    let threads = await Thread.findAll({where: {CategoryId:req.params.id}})
+    let threads = await Thread.findAll({where: {CategoryId:req.params.id}, include: [User]})
     res.json(threads);
 });
 
@@ -15,7 +34,7 @@ router.post('/category/:id/threads', async function(req, res, next) {
 });
 
 router.get('/thread/:id/replies', async function(req, res, next) {
-    let replies = await Reply.findAll({where: {ThreadId:req.params.id}})
+    let replies = await Reply.findAll({where: {ThreadId:req.params.id}, include: [User]})
     res.json(replies);
 });
 

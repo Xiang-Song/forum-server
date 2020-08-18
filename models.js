@@ -98,6 +98,13 @@ Thread.hasMany(Reply, {
 });
 Reply.belongsTo(Thread);
 
+User.hasMany(Reply, {
+    foreignKey: {
+        allowNull: false
+    }
+});
+Reply.belongsTo(User);
+
 
 sequelize.sync({alter:true});
 
